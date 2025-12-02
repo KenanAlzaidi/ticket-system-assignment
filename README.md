@@ -41,6 +41,8 @@ The application utilizes a dual-strategy for data management:
 *   **Default Database**: Stores system-critical data such as **Admin Users** and **Sessions**. It uses standard Laravel migrations (`database/migrations/`) and maintains its own `migrations` table.
 *   **Department Databases**: Store business-logic data (Tickets, Notes). These are managed via the custom migration subsystem described below.
 
+**Note on Assignment Scope:** As per the assignment requirements, this project is pre-configured to support **5 distinct department databases** (Technical Issues, Account & Billing, Product & Service, General Inquiry, Feedback & Suggestions), ensuring full data segregation from day one.
+
 ### 2. Configuration Layer
 The system dynamically maps department names to database connections.
 - **`config/departments.php`**: Maps user-facing ticket types to internal connection names.
