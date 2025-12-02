@@ -6,8 +6,26 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    {{-- SEO & Metadata --}}
+    <meta name="description" content="A robust multi-department ticket management system for efficient customer support handling.">
+    <meta name="author" content="Kenan Alzaidi">
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="noindex, nofollow"> {{-- Default to private since this is an internal/admin tool mainly --}}
+
     {{-- Security Headers --}}
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    {{-- Performance Optimization: Preconnect to CDNs --}}
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.datatables.net" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdn.datatables.net">
+    <link rel="dns-prefetch" href="https://code.jquery.com">
 
     <title>{{ config('app.name', 'Ticket System') }}</title>
 
@@ -74,6 +92,9 @@
         }
         .dataTables_wrapper .dataTables_filter input[type="search"]::-webkit-search-cancel-button:hover {
             opacity: 1;
+        }
+        .dataTables_wrapper .dataTables_filter input[type="search"]{
+            padding-right: 0.5rem;
         }
 
         /* DataTables Pagination - Fixed for CDN (No @apply) */

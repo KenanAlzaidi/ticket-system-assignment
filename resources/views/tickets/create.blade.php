@@ -9,7 +9,7 @@
             </div>
 
             <div class="p-6 sm:p-8">
-                <form method="POST" action="{{ route('tickets.store') }}" novalidate class="space-y-5">
+                <form method="POST" action="{{ route('tickets.store') }}" class="space-y-5">
                     @csrf
 
                     <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2">

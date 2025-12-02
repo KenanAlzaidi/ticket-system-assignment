@@ -7,7 +7,7 @@
             <h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Admin Portal Login</h2>
         </div>
 
-        <form class="space-y-6" action="{{ route('login.post') }}" method="POST" novalidate>
+        <form class="space-y-6" action="{{ route('login.post') }}" method="POST">
             @csrf
 
             <div>

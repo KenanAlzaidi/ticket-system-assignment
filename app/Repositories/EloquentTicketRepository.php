@@ -94,9 +94,10 @@ class EloquentTicketRepository implements TicketRepositoryInterface
                     'tickets.customer_email',
                     'tickets.customer_phone',
                     'tickets.status',
-                    'tickets.created_at',
-                    DB::raw("'{$departmentFilter}' as department")
+                    'tickets.updated_at',
+                    DB::raw("? as department")
                 ])
+                ->addBinding($departmentFilter, 'select')
                 ->toBase(); // Use raw query builder for consistency with Union return type
         }
 
@@ -104,9 +105,13 @@ class EloquentTicketRepository implements TicketRepositoryInterface
         $queries = [];
 
         foreach ($departments as $type => $connectionName) {
+            $connection = DB::connection($connectionName);
+            $dbName = $connection->getDatabaseName();
+
             // Create a query for this specific database
-            $query = DB::connection($connectionName)
-                ->table('tickets')
+            // We fully qualify the table name to ensure the UNION executes correctly across contexts
+            $query = $connection
+                ->table($dbName . '.tickets as tickets')
                 ->select([
                     'tickets.id',
                     'tickets.subject',
@@ -114,15 +119,21 @@ class EloquentTicketRepository implements TicketRepositoryInterface
                     'tickets.customer_email',
                     'tickets.customer_phone',
                     'tickets.status',
-                    'tickets.created_at',
-                    DB::raw("'{$type}' as department")
-                ]);
+                    'tickets.updated_at',
+                    DB::raw('? as department')
+                ])
+                ->addBinding($type, 'select');
 
             $queries[] = $query;
         }
 
         // Combine all queries using UNION ALL
         $firstQuery = array_shift($queries);
+
+        // Handle edge case where only 1 department exists
+        if (empty($queries)) {
+             return $firstQuery->getConnection()->query()->fromSub($firstQuery, 'all_tickets');
+        }
 
         foreach ($queries as $query) {
             $firstQuery->unionAll($query);

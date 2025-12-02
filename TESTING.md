@@ -24,7 +24,7 @@ This document outlines the manual testing procedures for the Multi-Database Migr
 
 ### 3. Targeted Migration (Single DB)
 **Goal**: Verify isolation of the `--db` flag.
-*   **Pre-condition**: No tables exist in any database.
+*   **Pre-condition**: No tables exist in the database connection.
 *   **Command**: `php artisan migrate:departments --db=technical_issues_department`
 *   **Expected Result**:
     *   The `tickets` table is created **ONLY** in `technical_issues_department`.

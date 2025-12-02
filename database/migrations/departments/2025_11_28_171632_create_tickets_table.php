@@ -25,7 +25,7 @@ return new class extends Migration
                 // Indexes for performance
                 $table->index('status');
                 $table->index('customer_email');
-                $table->index('created_at');
+                $table->index('updated_at');
             });
         }
     }

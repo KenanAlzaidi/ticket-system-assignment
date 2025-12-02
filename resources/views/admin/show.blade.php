@@ -62,6 +62,10 @@
                                 <dt class="font-medium text-gray-900 w-24 sm:w-auto sm:inline">Submitted:</dt>
                                 <dd class="sm:inline">{{ $ticket->created_at->format('M d, Y H:i') }}</dd>
                             </div>
+                            <div class="flex sm:block">
+                                <dt class="font-medium text-gray-900 w-24 sm:w-auto sm:inline">Updated:</dt>
+                                <dd class="sm:inline">{{ $ticket->updated_at->format('M d, Y H:i') }}</dd>
+                            </div>
                         </dl>
                     </div>
                 </div>

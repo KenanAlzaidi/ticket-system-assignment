@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_notes', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('note');
-            $table->timestamps();
+        if (!Schema::hasTable('admin_notes')) {
+            Schema::create('admin_notes', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade')->onUpdate('cascade');
+                $table->text('note');
+                $table->timestamps();
 
-            $table->index('ticket_id');
-            $table->index('created_at');
-        });
+                // Indexes for performance
+                $table->index('ticket_id');
+                $table->index('created_at');
+            });
+        }
     }
 
     /**

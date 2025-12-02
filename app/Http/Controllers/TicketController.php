@@ -91,8 +91,8 @@ class TicketController extends Controller
                         // $row is a stdClass object here because we are using DB::query() / toBase()
                         return '<a href="'.route('admin.tickets.show', ['department' => $row->department, 'id' => $row->id]).'" class="text-blue-600 hover:text-blue-900 font-medium text-sm transition-colors hover:underline">View</a>';
                     })
-                    ->editColumn('created_at', function ($row) {
-                        return $row->created_at ? \Carbon\Carbon::parse($row->created_at)->format('M d, Y H:i') : 'N/A';
+                    ->editColumn('updated_at', function ($row) {
+                        return $row->updated_at ? \Carbon\Carbon::parse($row->updated_at)->format('M d, Y H:i') : 'N/A';
                     })
                     ->editColumn('status', function ($row) {
                         $statusClasses = match($row->status) {
